@@ -6,12 +6,21 @@ from pathlib import Path
 policy_path = Path("company_policy.txt")
 policy_text = policy_path.read_text(encoding="utf-8")
 
-keyword = input("请输入要查询的关键词（例如：报销、请假、密码）：").strip()
+paragraphs = policy_text.split("\n\n")
 
-if not keyword:
-    print("你没有输入关键词，程序结束。")
-else:
-    paragraphs = policy_text.split("\n\n")
+print("企业制度查询助手已启动。输入“退出”结束程序。")
+
+while True:
+    keyword = input("\n请输入要查询的关键词（例如：报销、请假、密码）：").strip()
+
+    if keyword in {"退出", "exit", "q"}:
+        print("查询助手已结束，欢迎下次使用。")
+        break
+
+    if not keyword:
+        print("你没有输入关键词，请重新输入。")
+        continue
+
     matched_paragraphs = [paragraph for paragraph in paragraphs if keyword in paragraph]
 
     if matched_paragraphs:
